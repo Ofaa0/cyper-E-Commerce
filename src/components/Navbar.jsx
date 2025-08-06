@@ -29,13 +29,13 @@ export default function Navbar() {
             alt="logo image"
           />
           <div
-            className={`bg-white border-b border-[#B5B5B5] lg:border-0 z-[110] w-full lg:flex justify-between flex-col lg:flex-row gap-3 absolute lg:static top-[90px] items-center py-3 lg:py-0 transition duration-200 ${
+            className={`bg-white border-b border-[#B5B5B5] lg:border-0 z-[110] w-full lg:flex justify-between flex-col lg:flex-row gap-3 absolute lg:static px-3 top-[88px] left-0 items-center py-3 lg:py-0 transition duration-200 ${
               toggleState
                 ? "translate-x-[-800px] lg:translate-x-[0px]"
                 : "translate-x-[0px]"
             }`}
           >
-            <div className="w-[90%] lg:w-[372px] h-[56px] relative rounded-[8px] overflow-hidden">
+            <div className="w-full lg:w-[372px] h-[56px] relative rounded-[8px] overflow-hidden">
               <input
                 className="input w-full h-full p-4 pl-12 bg-[#F5F5F5] placeholder:text-[#656565] text-black"
                 type="search"

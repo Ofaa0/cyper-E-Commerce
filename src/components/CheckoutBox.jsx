@@ -32,7 +32,7 @@ export default function CheckoutBox() {
               type="text"
               placeholder="Enter Card Number"
             />
-            <button className="btn bg-white text-black border border-black rounded-[8px] absolute right-[16px] top-[32px] px-6">
+            <button className="btn bg-white text-black border border-black rounded-[8px] z-30 absolute right-[16px] top-[32px] px-6">
               Apply
             </button>
           </label>

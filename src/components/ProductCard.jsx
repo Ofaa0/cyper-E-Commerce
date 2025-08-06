@@ -15,7 +15,7 @@ export default function ProductCard({ product }) {
       <p className={paragraphStyle}>${product.price}</p>
       <button
         onClick={() => {
-          addToCart({ ...product, qty: 1 });
+          addToCart({ ...product, qty: 1 ,basePrice: product.price});
           toast.success("Item is added !");
         }}
         className="btn btn-neutral w-full"
