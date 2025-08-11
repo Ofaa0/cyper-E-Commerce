@@ -34,7 +34,7 @@ export default function SignUpForm() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [userToken, setUserToken] = useState(null);
-  const domainPost = "https://82.112.241.233:2500"
+  const domainPost = "http://82.112.241.233:2500"
   const handleLogin = (values) => {
     console.log(values);
     const endPoint = "/api/auth/local/register";
