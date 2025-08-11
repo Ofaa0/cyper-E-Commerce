@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { useAddToCart } from "../store/store";
+import { domain, useAddToCart } from "../store/store";
 import { IoMdClose } from "react-icons/io";
 import { FaTrashCan } from "react-icons/fa6";
 export default function CartList() {
@@ -24,12 +24,12 @@ export default function CartList() {
               <div className="leftInfo flex gap-4 lg:max-w-[70%] items-start">
                 <img
                   className="w-[100px]"
-                  src={el.image}
+                  src={domain+el.img?.url}
                   alt={`product ${el.id}`}
                 />
                 <div className="flex flex-col gap-4">
-                  <p>{el.title}</p>
-                  <p>#{el.id}</p>
+                  <p>{el.name}</p>
+                  <p># {el.documentId}</p>
                 </div>
               </div>
               <div className="rightInfo flex flex-col justify-between h-full p-4 pb-12">

@@ -59,12 +59,14 @@ export default function Navbar() {
             </nav>
             <div className="list-icons flex items-center gap-6 text-gray-900">
               <IoMdHeartEmpty className={iconsStyle} />
-              <Link to={'/cart'}>
+              <Link to={"/cart"}>
                 <div onClick={toggleMenu} className="relative">
                   <IoCartOutline className={iconsStyle} />
-                  <p className="felx justify-center items-center rounded-full top-[-14px] right-[-14px]  px-[8px] py-[1px] bg-black text-white absolute">
-                    {value.length}
-                  </p>
+                  {value.length > 0 && (
+                    <p className="felx justify-center items-center rounded-full top-[-14px] right-[-14px]  px-[8px] py-[1px] bg-black text-white absolute">
+                      {value.length}
+                    </p>
+                  )}
                 </div>
               </Link>
               <FiUser className={iconsStyle} />

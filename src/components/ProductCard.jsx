@@ -1,9 +1,12 @@
 import toast from "react-hot-toast";
-import { useAddToCart } from "../store/store";
+import { domain, useAddToCart } from "../store/store";
 import { useEffect, useState } from "react";
 import { FaTrashCan } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+import noImg from "../assets/No-Image-Placeholder.svg.png"
 
 export default function ProductCard({ product }) {
+
   const value = useAddToCart((state) => state.value);
   const removeFromCart = useAddToCart((state) => state.removeFromCart);
   const addToCart = useAddToCart((state) => state.addToCart);
@@ -15,14 +18,16 @@ export default function ProductCard({ product }) {
 
   const paragraphStyle = "text-black font-[600] text-[15px] leading-[24px]";
   return (
-    <div className="hover:bg-gray-100 cursor-alias rounded-[8px] duration-150 cardItem flex flex-col gap-3 p-4 items-start justify-center">
+    <div className="hover:bg-gray-100 rounded-[8px] duration-150 cardItem flex flex-col gap-3 p-4 items-start justify-center">
       <img
-        className="w-full h-[220px] object-fill"
-        src={product.image}
+        loading="lazy"
+        className="w-full h-[220px] object-cover"
+        src={product?.img?.url ? domain + product?.img?.url : noImg}
         alt={`product${product.id}`}
       />
-      <p className={paragraphStyle}>{product.title}</p>
+      <p className={paragraphStyle}>{product.name}</p>
       <p className={paragraphStyle}>${product.price}</p>
+      <Link className="text-black underline" to={`/productDetailsPage/${product.documentId}`}>Show Details</Link>
       {itemIsHere ? (
         <button
           onClick={() => {

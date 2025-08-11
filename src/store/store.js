@@ -1,5 +1,9 @@
+import axios from "axios";
 import toast from "react-hot-toast";
 import { create } from "zustand";
+
+export const domain = "http://82.112.241.233:2500";
+
 
 export const useAddToCart = create((set) => ({
   value: [],
@@ -37,3 +41,4 @@ export const useAddToCart = create((set) => ({
       return { value: items };
     }),
 }));
+

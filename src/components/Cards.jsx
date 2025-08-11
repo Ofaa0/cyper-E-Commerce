@@ -1,19 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { domain } from "../store/store";
 
-export default function Cards() {
-  const domain = "https://fakestoreapi.com";
-  const endPoint = "/products";
+export default function Cards() {  
+  const endPoint = "/api/products?populate=*&pagination[pageSize]=61";
   const URL = domain + endPoint;
   const [productsList, setProductsLIst] = useState([]);
   const [loaded, setLoaded] = useState(true);
+
 
   useEffect(() => {
     axios
       .get(URL)
       .then((res) => {
-        setProductsLIst(res.data);
+        setProductsLIst(res.data.data);
         setLoaded(!loaded);
       })
       .catch(() => setLoaded(!loaded));
@@ -34,7 +35,7 @@ export default function Cards() {
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3">
             {productsList.map((el) => (
-              <ProductCard key={el.id} product={el} />
+              <ProductCard key={el.documentId} product={el} />
             ))}
           </div>
         )}
