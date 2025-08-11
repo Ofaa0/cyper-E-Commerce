@@ -2,8 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { RiEyeCloseFill } from "react-icons/ri";
 import { ImEye } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import axios from "axios";
+import { domain } from "../store/store";
+import toast from "react-hot-toast";
 
 export default function SignUpForm() {
   const handleLoginValidation = Yup.object({
@@ -28,10 +31,32 @@ export default function SignUpForm() {
   const toggleSeePass = () => {
     setSeePass(!seePass);
   };
-
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+  const [userToken, setUserToken] = useState(null);
   const handleLogin = (values) => {
     console.log(values);
-    
+    const endPoint = "/api/auth/local/register";
+    axios
+      .post(domain + endPoint, {
+        email: values.email,
+        username: values.username,
+        password: values.password,
+      })
+      .then((res) => {
+        // setUserData(res.data.user);
+        // localStorage.setItem("current user" , JSON.stringify(res.data.user))
+        // setUserToken(res.data.jwt);
+        // localStorage.setItem("current user token" , JSON.stringify(res.data.jwt))
+        navigate("/");
+        toast.success(`Welcome ${values.username}`);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        toast.error("Something Wrong");
+      });
   };
   return (
     <>
@@ -112,7 +137,7 @@ export default function SignUpForm() {
               />
 
               <button
-              type="submit"
+                type="submit"
                 className="w-full btn btn-neutral mt-2.5 md:text-[18px]"
               >
                 Sign Up
