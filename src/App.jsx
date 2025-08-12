@@ -6,10 +6,9 @@ import { Toaster } from "react-hot-toast";
 import LogInPage from "./pages/LogInPage";
 import SingUpPage from "./pages/SingUpPage";
 import ProductDetailes from "./pages/ProductDetailes";
-import ProtectedRoute from "./components/ProtectedRoute";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
- 
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
@@ -18,9 +17,9 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute>
-                <MainLayout />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <MainLayout />
+              // </ProtectedRoute>
             }
           >
             <Route index element={<HomePage />}></Route>

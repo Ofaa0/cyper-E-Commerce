@@ -2,6 +2,8 @@ import Cards from "./Cards";
 import SideFilterBar from "./SideFilterBar";
 
 export default function MainSection() {
+  
+
   return (
     <>
       <div className="flex justify-center items-center py-10">

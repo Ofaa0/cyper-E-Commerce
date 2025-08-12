@@ -2,12 +2,15 @@ import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { domain } from "../store/store";
+import { domain, selectedCat } from "../store/store";
 
 export default function SideFilterBar() {
+  
   let checkboxStyle = `text-[15px] font-[500] leading-[24px] flex gap-3`;
   const [toggleFilter, setToggleFilter] = useState(false);
-
+  const value = selectedCat((state) => state.value);
+  const resetCat = selectedCat((state) => state.resetCat);
+  const filteredCat = selectedCat((state) => state.filteredCat);
   const changeToggleState = () => {
     setToggleFilter(!toggleFilter);
   };
@@ -19,23 +22,10 @@ export default function SideFilterBar() {
     axios
       .get(domain + endPoint)
       .then((res) => {
-        // نضيف isChecked لكل عنصر
-        const dataWithCheck = res.data.data.map((cat) => ({
-          ...cat,
-          isChecked: false,
-        }));
-        setCats(dataWithCheck);
+        setCats(res.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, []);
- 
-  const toggleCheckbox = (index) => {
-    setCats((prev) => {
-      const updated = [...prev];
-      updated[index].isChecked = !updated[index].isChecked;
-      return updated;
-    });
-  };
 
   return (
     <div className="min-w-[256px] lg:w-[256px] w-full pb-4 lg:pb-0">
@@ -69,11 +59,23 @@ export default function SideFilterBar() {
           </div>
 
           <div className="checkBoxList text-black flex flex-col gap-2">
+            <label
+                className={checkboxStyle}
+                onClick={resetCat}
+              >
+                <input
+                  type="radio"
+                  name="catCheck"
+                  onChange={() => {}} // لازم عشان React ما يزعقش
+                  className="checkbox checkbox-neutral w-[18px] h-[18px] rounded-[3px] self-center"
+                />
+                All
+              </label>
             {cats?.map((el, index) => (
               <label
-                key={el.id}
+                key={el.documentId}
                 className={checkboxStyle}
-                onClick={() => toggleCheckbox(index)}
+                onClick={() => filteredCat(el)}
               >
                 <input
                   type="radio"
