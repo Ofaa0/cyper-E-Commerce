@@ -14,14 +14,7 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} />
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              // <ProtectedRoute>
-              <MainLayout />
-              // </ProtectedRoute>
-            }
-          >
+          <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />}></Route>
             <Route
               path="productDetailsPage/:productId"

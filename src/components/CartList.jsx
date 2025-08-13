@@ -11,7 +11,7 @@ export default function CartList() {
 
   return (
     <>
-      <div className="cartList flex flex-col  lg:max-w-[50%] w-full py-10 lg:pr-6 h-[80vh] grow overflow-y-auto">
+      <div className="cartList flex flex-col  lg:max-w-[50%] w-full py-10 lg:pr-6 h-auto lg:h-[80vh] grow overflow-y-auto">
         <h1 className="text-black text-[24px] leading-[24px] font-[400] mb-3">
           Shopping Cart
         </h1>
@@ -29,7 +29,7 @@ export default function CartList() {
                 />
                 <div className="flex flex-col gap-4">
                   <p>{el.name}</p>
-                  <p># {el.documentId}</p>
+                  <p># {el.id}</p>
                 </div>
               </div>
               <div className="rightInfo flex flex-col justify-between h-full p-4 pb-12">

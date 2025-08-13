@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAddToCart } from "../store/store";
+import { useAddToCart, useToggleModalState } from "../store/store";
+import PayModal from "./PayModal";
 export default function CheckoutBox() {
+  const valueToggle = useToggleModalState((state) => state.valueToggle);
+  const toggleModalState = useToggleModalState(
+    (state) => state.toggleModalState
+  );
+
   let sum = 0;
   const value = useAddToCart((state) => state.value);
   const [subTotal, setSubTotal] = useState(0);
@@ -10,6 +16,9 @@ export default function CheckoutBox() {
   }, [value]);
   return (
     <>
+      {valueToggle && (
+        <PayModal total={subTotal + (value.length == 0 ? 0 : 80)} />
+      )}
       <div className="checkoutBox text-black lg:w-[50%] w-full py-4">
         <div className="flex flex-col grow px-4 lg:px-16 py-14 g:max-w-[50%] border border-gray-300 my-1 rounded-[10px]">
           <h1 className="leading-[20px] text-[16px] font-[600] mb-10">
@@ -52,7 +61,17 @@ export default function CheckoutBox() {
             <h3 className="font-[600]">Total</h3>
             <p>${subTotal + (value.length == 0 ? 0 : 80)}</p>
           </div>
-          <button className="w-full btn btn-neutral">Checkout</button>
+          <button
+            onClick={() => {
+              if (subTotal != 0) {
+                toggleModalState();
+              }
+              console.log(valueToggle);
+            }}
+            className="w-full btn btn-neutral"
+          >
+            Checkout
+          </button>
         </div>
       </div>
     </>

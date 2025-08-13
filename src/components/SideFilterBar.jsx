@@ -5,17 +5,17 @@ import axios from "axios";
 import { domain, selectedCat } from "../store/store";
 
 export default function SideFilterBar() {
-  
   let checkboxStyle = `text-[15px] font-[500] leading-[24px] flex gap-3`;
   const [toggleFilter, setToggleFilter] = useState(false);
   const value = selectedCat((state) => state.value);
   const resetCat = selectedCat((state) => state.resetCat);
   const filteredCat = selectedCat((state) => state.filteredCat);
+  const [isLoaded, setIsLoaded] = useState(true);
   const changeToggleState = () => {
     setToggleFilter(!toggleFilter);
   };
 
-  const endPoint = "/api/categories?populate[products][populate]=*";
+  const endPoint = "/api/categories?populate=*";
   const [cats, setCats] = useState([]);
 
   useEffect(() => {
@@ -23,8 +23,9 @@ export default function SideFilterBar() {
       .get(domain + endPoint)
       .then((res) => {
         setCats(res.data.data);
+        setIsLoaded(false);
       })
-      .catch((err) => {});
+      .catch((err) => setIsLoaded(false));
   }, []);
 
   return (
@@ -58,11 +59,20 @@ export default function SideFilterBar() {
             <CiSearch className="absolute text-[#656565] z-[5] top-[50%] left-[10px] -translate-y-1/2 text-[24px]" />
           </div>
 
-          <div className="checkBoxList text-black flex flex-col gap-2">
-            <label
-                className={checkboxStyle}
-                onClick={resetCat}
-              >
+          {isLoaded ? (
+            <div className="animate-pulse flex flex-col items-center gap-4 w-60">
+              <div>
+                <div className="w-48 h-6 bg-slate-400 rounded-md"></div>
+                <div className="w-28 h-4 bg-slate-400 mx-auto mt-3 rounded-md"></div>
+              </div>
+              <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+              <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+              <div className="h-7 bg-slate-400 w-full rounded-md"></div>
+              <div className="h-7 bg-slate-400 w-1/2 rounded-md"></div>
+            </div>
+          ) : (
+            <div className="checkBoxList text-black flex flex-col gap-2">
+              <label className={checkboxStyle} onClick={resetCat}>
                 <input
                   type="radio"
                   name="catCheck"
@@ -71,23 +81,24 @@ export default function SideFilterBar() {
                 />
                 All
               </label>
-            {cats?.map((el, index) => (
-              <label
-                key={el.documentId}
-                className={checkboxStyle}
-                onClick={() => filteredCat(el)}
-              >
-                <input
-                  type="radio"
-                  name="catCheck"
-                  defaultChecked={el.isChecked}
-                  onChange={() => {}} // لازم عشان React ما يزعقش
-                  className="checkbox checkbox-neutral w-[18px] h-[18px] rounded-[3px] self-center"
-                />
-                {el.name}
-              </label>
-            ))}
-          </div>
+              {cats?.map((el, index) => (
+                <label
+                  key={el.documentId}
+                  className={checkboxStyle}
+                  onClick={() => filteredCat(el)}
+                >
+                  <input
+                    type="radio"
+                    name="catCheck"
+                    defaultChecked={el.isChecked}
+                    onChange={() => {}} // لازم عشان React ما يزعقش
+                    className="checkbox checkbox-neutral w-[18px] h-[18px] rounded-[3px] self-center"
+                  />
+                  {el.name}
+                </label>
+              ))}
+            </div>
+          )}
 
           <button className="btn bg-black text-white w-full rounded-[8px] font-[500] text-[15px] leading-[24px] mt-4">
             Apply

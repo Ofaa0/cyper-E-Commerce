@@ -11,6 +11,7 @@ export const useAddToCart = create((set) => ({
     })),
   removeFromCart: (index) =>
     set((state) => ({ value: state.value.filter((_, i) => i !== index) })),
+  emptyCartList: () => set(() => ({ value: [] })),
   increseQTY: (index) =>
     set((state) => {
       const items = [...state.value];
@@ -40,10 +41,13 @@ export const useAddToCart = create((set) => ({
     }),
 }));
 
-
 export const selectedCat = create((set) => ({
   value: [],
   filteredCat: (cat) => set(() => ({ value: cat })),
   resetCat: () => set(() => ({ value: [] })),
 }));
 
+export const useToggleModalState = create((set) => ({
+  valueToggle: false,
+  toggleModalState: () => set((state) => ({ valueToggle: !state.valueToggle })),
+}));

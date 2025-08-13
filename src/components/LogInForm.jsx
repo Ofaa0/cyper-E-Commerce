@@ -27,35 +27,34 @@ export default function LogInForm() {
 
   const endPoint = "/api/auth/local";
   const [userToken, setUserToken] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleLogin = (values) => {
     setUser(values);
-    
+
     const { rememberMe, ...userData } = values;
     values.rememberMe
       ? localStorage.setItem("current user", JSON.stringify(userData))
       : sessionStorage.setItem("current user", JSON.stringify(userData));
-      axios
+    axios
       .post(domain + endPoint, {
         identifier: values.email,
         password: values.password,
       })
       .then((res) => {
-        setUserToken(res.data.jwt)
         console.log(res.data);
-        
-        navigate("/")
-        toast.success(`Welcome ${res.data.user.username}`)
+        setUserToken(res.data.jwt);
+        navigate("/");
+        toast.success(`Welcome ${res.data.user.username}`);
       })
       .catch((err) => {
-        toast.error("Wrong Email or Password")
+        toast.error("Wrong Email or Password");
       });
   };
 
   // useEffect(()=>{
 
   // },[userToken])
-    
+
   return (
     <>
       <div className="w-full h-[100vh] flex justify-center items-center">

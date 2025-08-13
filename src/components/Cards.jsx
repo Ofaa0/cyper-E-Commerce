@@ -46,13 +46,20 @@ export default function Cards() {
     <>
       <div className="pb-3 lg:pl-8 grow">
         <h1 className="text-[#6C6C6C]">
-          Available Products: <span className="text-black font-bold"></span>
+          Available Products:{" "}
+          <span className="text-black font-bold">
+            {value?.id ? view.length : productsList.length}
+          </span>
         </h1>
         {loaded ? (
-          <div className="felx justify-center items-center w-full h-[50vh]">
-            <span className="loading loading-spinner text-neutral w-[50%]">
-              {view.length}
-            </span>
+          <div className="flex flex-col bg-neutral-300 w-[300px] h-[400px] animate-pulse rounded-xl mt-4 p-4 gap-4">
+            <div className="bg-neutral-400/50 w-full h-[200px] animate-pulse rounded-md"></div>
+            <div className="flex flex-col gap-2">
+              <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+              <div className="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
+              <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+              <div className="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3">
